@@ -1,5 +1,7 @@
 tensorflow==2.4.1
 flask
 keras
+numpy
 requests
-opencv-python
+werkzeug
+

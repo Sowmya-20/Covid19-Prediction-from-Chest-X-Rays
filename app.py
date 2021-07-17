@@ -3,14 +3,14 @@
 import os
 from tensorflow.keras.models import load_model
 import numpy as np
-from flask import Flask, request, redirect, url_for, send_from_directory,render_template
+from flask import Flask, request, send_from_directory,render_template
 from keras.preprocessing import image
 from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
 
-model_path="model/covid_pred_model.h5"
+model_path ="model/model.h5"
 model=load_model(model_path,compile=False)
 
 img_size=100
@@ -30,13 +30,13 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/upload', methods=["GET","POST"])
+@app.route('/predict', methods=["GET","POST"])
 def upload():
     if request.method == 'POST':
         file = request.files['image_file']
         basepath=os.path.dirname(__file__)
         filename=secure_filename(file.filename)
-        filepath=os.path.join(basepath,'uploads/',file.filename)
+        filepath=os.path.join(basepath,'upload/',file.filename)
         file.save(filepath)
         livepreds = model_predict(filepath,model)
         if livepreds==1:
@@ -47,7 +47,7 @@ def upload():
 
 @app.route('/upload/<filename>')
 def send_image(filename):
-    return send_from_directory("uploads", filename)
+    return send_from_directory("upload", filename)
 
 if __name__ == '__main__':
     app.run()
