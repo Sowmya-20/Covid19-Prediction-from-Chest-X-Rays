@@ -40,9 +40,9 @@ def upload():
         file.save(filepath)
         livepreds = model_predict(filepath,model)
         if livepreds==1:
-            return render_template('covid negative.html',filename=filename)
+            return render_template('covid_negative.html',filename=filename)
         else:
-            return render_template('Covid positive.html',filename=filename)
+            return render_template('covid_positive.html',filename=filename)
     return None
 
 @app.route('/upload/<filename>')
