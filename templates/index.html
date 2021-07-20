@@ -176,15 +176,30 @@ html,body{
 </br>
 </br>
 <center>
-<form action = "{{url_for('upload')}}" enctype="multipart/form-data" method = "POST">
+
+<form action = "{{url_for('predict')}}" enctype="multipart/form-data" method = "POST">
 <div class = "card">
-		<h1 class="line">Covid Detector</h1>
-		<input class="input100"  type="file" accept=".png, .jpg, .jpeg" placeholder="upload a image" name="image_file" />
-		<!-- <textarea class="input100" name="message" placeholder="Your message here..."></textarea> -->
+		<h1 class="line">Mask Detector</h1>
+		<input class="input100"  type="file" required id="fileName" accept=".png, .jpg, .jpeg , .jfif" onchange="validateFileType()" name="image_file"/>
+		<script type="text/javascript">
+			function validateFileType(){
+				var fileName = document.getElementById("fileName").value;
+				var idxDot = fileName.lastIndexOf(".") + 1;
+				var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+				if (extFile=="jpg" || extFile=="jpeg" || extFile=="png" || extFile=="jfif"){
+				}else{
+					alert("Only jpg/jpeg/jfif and png files are allowed!");
+					document.getElementById("fileName").value=null;
+				} 
+				
+			}
+		</script>
 		<span class="focus-input100"></span>
 		</br>
-		<input type="submit" value="Predict!" align="center-right">
+		<input type="submit" value="Predict!"  align="center-right">
 </div>
 </form>
+</center>
+
 </body>
 </html>

@@ -31,7 +31,7 @@ def index():
 
 
 @app.route('/predict', methods=["GET","POST"])
-def upload():
+def predict():
     if request.method == 'POST':
         file = request.files['image_file']
         basepath=os.path.dirname(__file__)
@@ -45,7 +45,7 @@ def upload():
             return render_template('covid_positive.html',filename=filename)
     return None
 
-@app.route('/upload/<filename>')
+@app.route('/predict/<filename>')
 def send_image(filename):
     return send_from_directory("upload", filename)
 
