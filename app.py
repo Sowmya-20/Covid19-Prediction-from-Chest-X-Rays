@@ -13,8 +13,6 @@ app = Flask(__name__)
 model_path ="model/model.h5"
 model=load_model(model_path,compile=False)
 
-img_size=100
-
 
 def model_predict(img_path, model):
 
